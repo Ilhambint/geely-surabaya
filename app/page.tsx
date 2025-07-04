@@ -875,7 +875,7 @@ ${t.formThanks}`;
                       Timur 60281
                     </p>
                     <Link
-                      href="#"
+                      href="https://g.co/kgs/8pfkYX3"
                       className="text-blue-400 hover:underline text-sm"
                     >
                       {t.viewOnMaps}
