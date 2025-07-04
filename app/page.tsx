@@ -1,14 +1,20 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   MapPin,
   Clock,
@@ -22,12 +28,12 @@ import {
   Play,
   Download,
   MessageCircle,
-} from "lucide-react"
-import Link from "next/link"
-import Image from "next/image"
-import { VideoModal } from "@/components/video-modal"
+} from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { VideoModal } from "@/components/video-modal";
 
-type Language = "id"
+type Language = "id";
 
 const translations = {
   id: {
@@ -75,7 +81,7 @@ const translations = {
     performanceTitle: "Tenaga Responsif, Perlindungan Maksimal",
     performanceImpressive: "Performa Impresif",
     activeSafety: "Keamanan Aktif (ADAS)",
-    engine: "Mesin",
+    engine: "Penggerak",
     power: "Tenaga",
     torque: "Torsi",
     acceleration: "Akselerasi (0-100 km/jam)",
@@ -105,7 +111,8 @@ const translations = {
     morning: "Pagi (09:00-12:00)",
     afternoon: "Siang (13:00-16:00)",
     scheduleTestDrive: "JADWALKAN TEST DRIVE",
-    dataSecure: "Tim kami akan segera menghubungi Anda melalui WhatsApp untuk konfirmasi jadwal. Data Anda 100% aman.",
+    dataSecure:
+      "Tim kami akan segera menghubungi Anda melalui WhatsApp untuk konfirmasi jadwal. Data Anda 100% aman.",
 
     // Footer
     dealerAddress: "Geely Surabaya",
@@ -123,23 +130,23 @@ const translations = {
     formTime: "Waktu:",
     formThanks: "Terima kasih!",
   },
-}
+};
 
 export default function GeelyEX5Landing() {
-  const [language, setLanguage] = useState<Language>("id")
+  const [language, setLanguage] = useState<Language>("id");
   const [formData, setFormData] = useState({
     name: "",
     whatsapp: "",
     location: "",
     date: "",
     time: "",
-  })
+  });
 
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
-  const [isTestTrackVideoOpen, setIsTestTrackVideoOpen] = useState(false)
-  const [isExhibitionVideoOpen, setIsExhibitionVideoOpen] = useState(false)
-  const [currentInteriorSlide, setCurrentInteriorSlide] = useState(0)
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [isTestTrackVideoOpen, setIsTestTrackVideoOpen] = useState(false);
+  const [isExhibitionVideoOpen, setIsExhibitionVideoOpen] = useState(false);
+  const [currentInteriorSlide, setCurrentInteriorSlide] = useState(0);
 
   // Add interior images array
   const interiorImages = [
@@ -147,13 +154,18 @@ export default function GeelyEX5Landing() {
     "/images/geely-ex5-silver.png",
     "/images/geely-ex5-teal.png",
     "/images/geely-ex5-white.png",
-  ]
-  const heroImages = ["/images/hero-1.png", "/images/hero-2.png", "/images/hero-3.png", "/images/hero-4.png"]
+  ];
+  const heroImages = [
+    "/images/hero-1.png",
+    "/images/hero-2.png",
+    "/images/hero-3.png",
+    "/images/hero-4.png",
+  ];
 
-  const t = translations[language]
+  const t = translations[language];
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     const message = `${t.formMessage}
     
 ${t.formName} ${formData.name}
@@ -161,38 +173,48 @@ ${t.formWhatsapp} ${formData.whatsapp}
 ${t.formDate} ${formData.date}
 ${t.formTime} ${formData.time}
 
-${t.formThanks}`
+${t.formThanks}`;
 
-    const whatsappUrl = `https://wa.me/6281357046621?text=${encodeURIComponent(message)}`
-    window.open(whatsappUrl, "_blank")
-  }
+    const whatsappUrl = `https://wa.me/6281357046621?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappUrl, "_blank");
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroImages.length)
-    }, 5000) // Change slide every 5 seconds
+      setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+    }, 5000); // Change slide every 5 seconds
 
-    return () => clearInterval(interval)
-  }, [heroImages.length])
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
 
   // Add this useEffect after the existing hero carousel useEffect
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentInteriorSlide((prev) => (prev + 1) % interiorImages.length)
-    }, 4000) // Change slide every 4 seconds
+      setCurrentInteriorSlide((prev) => (prev + 1) % interiorImages.length);
+    }, 4000); // Change slide every 4 seconds
 
-    return () => clearInterval(interval)
-  }, [interiorImages.length])
+    return () => clearInterval(interval);
+  }, [interiorImages.length]);
 
   const scrollToSection = (sectionId: string) => {
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" })
-  }
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <div className="min-h-screen bg-white">
       {/* Video Modals */}
-      <VideoModal isOpen={isVideoModalOpen} onClose={() => setIsVideoModalOpen(false)} videoId="UhpHXpBRrEU" />
-      <VideoModal isOpen={isTestTrackVideoOpen} onClose={() => setIsTestTrackVideoOpen(false)} videoId="l1YzaUTGLLk" />
+      <VideoModal
+        isOpen={isVideoModalOpen}
+        onClose={() => setIsVideoModalOpen(false)}
+        videoId="UhpHXpBRrEU"
+      />
+      <VideoModal
+        isOpen={isTestTrackVideoOpen}
+        onClose={() => setIsTestTrackVideoOpen(false)}
+        videoId="l1YzaUTGLLk"
+      />
       <VideoModal
         isOpen={isExhibitionVideoOpen}
         onClose={() => setIsExhibitionVideoOpen(false)}
@@ -205,7 +227,13 @@ ${t.formThanks}`
           <div className="flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center">
-              <Image src="/images/geely-logo.png" alt="Geely Logo" width={120} height={60} className="h-14 w-auto" />
+              <Image
+                src="/images/geely-logo.png"
+                alt="Geely Logo"
+                width={120}
+                height={60}
+                className="h-14 w-auto"
+              />
             </div>
 
             {/* Navigation Menu */}
@@ -283,7 +311,9 @@ ${t.formThanks}`
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             {t.heroTitle} <span className="text-blue-400">Surabaya</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-200">{t.heroSubtitle}</p>
+          <p className="text-xl md:text-2xl mb-8 text-gray-200">
+            {t.heroSubtitle}
+          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               onClick={() => scrollToSection("booking")}
@@ -297,8 +327,9 @@ ${t.formThanks}`
               size="lg"
               className="border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg bg-transparent"
               onClick={() => {
-                const downloadUrl = "https://drive.google.com/uc?export=download&id=1lhNH-uevukJvh6Ro-DPanmPk95N0Tn5D"
-                window.open(downloadUrl, "_blank")
+                const downloadUrl =
+                  "https://drive.google.com/uc?export=download&id=1lhNH-uevukJvh6Ro-DPanmPk95N0Tn5D";
+                window.open(downloadUrl, "_blank");
               }}
             >
               <Download className="w-5 h-5 mr-2" />
@@ -312,7 +343,9 @@ ${t.formThanks}`
       <section id="design" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{t.designTitle}</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              {t.designTitle}
+            </h2>
             <p className="text-xl text-gray-600">{t.designSubtitle}</p>
           </div>
 
@@ -365,7 +398,9 @@ ${t.formThanks}`
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{t.excellenceComfort}</h3>
+                  <h3 className="text-xl font-bold mb-2">
+                    {t.excellenceComfort}
+                  </h3>
                   <p className="text-gray-600">{t.excellenceComfortDesc}</p>
                 </div>
               </CardContent>
@@ -379,7 +414,9 @@ ${t.formThanks}`
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">{t.interiorTitle}</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                {t.interiorTitle}
+              </h2>
               <p className="text-xl text-gray-600 mb-8">{t.interiorSubtitle}</p>
 
               <div className="space-y-6">
@@ -388,7 +425,9 @@ ${t.formThanks}`
                     <Smartphone className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-1">{t.touchScreen}</h3>
+                    <h3 className="text-lg font-semibold mb-1">
+                      {t.touchScreen}
+                    </h3>
                     <p className="text-gray-600">{t.touchScreenDesc}</p>
                   </div>
                 </div>
@@ -398,7 +437,9 @@ ${t.formThanks}`
                     <Volume2 className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-1">{t.flymeSoundInterior}</h3>
+                    <h3 className="text-lg font-semibold mb-1">
+                      {t.flymeSoundInterior}
+                    </h3>
                     <p className="text-gray-600">{t.flymeSoundInteriorDesc}</p>
                   </div>
                 </div>
@@ -408,7 +449,9 @@ ${t.formThanks}`
                     <Camera className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-1">{t.camera360}</h3>
+                    <h3 className="text-lg font-semibold mb-1">
+                      {t.camera360}
+                    </h3>
                     <p className="text-gray-600">{t.camera360Desc}</p>
                   </div>
                 </div>
@@ -418,7 +461,9 @@ ${t.formThanks}`
                     <Zap className="w-6 h-6 text-blue-600" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold mb-1">{t.wirelessCharging}</h3>
+                    <h3 className="text-lg font-semibold mb-1">
+                      {t.wirelessCharging}
+                    </h3>
                     <p className="text-gray-600">{t.wirelessChargingDesc}</p>
                   </div>
                 </div>
@@ -431,7 +476,9 @@ ${t.formThanks}`
                   <div
                     key={index}
                     className={`transition-opacity duration-1000 ${
-                      index === currentInteriorSlide ? "opacity-100" : "opacity-0 absolute inset-0"
+                      index === currentInteriorSlide
+                        ? "opacity-100"
+                        : "opacity-0 absolute inset-0"
                     }`}
                   >
                     <Image
@@ -453,7 +500,9 @@ ${t.formThanks}`
       <section id="performance" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{t.performanceTitle}</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              {t.performanceTitle}
+            </h2>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
@@ -463,13 +512,17 @@ ${t.formThanks}`
                 <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Zap className="w-8 h-8 text-red-600" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900">{t.performanceImpressive}</h3>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  {t.performanceImpressive}
+                </h3>
               </div>
 
               <div className="space-y-4">
                 <div className="flex justify-between items-center py-3 border-b">
                   <span className="font-medium">{t.engine}</span>
-                  <span className="text-blue-600 font-semibold text-sm">Permanent Magnetic Synchronous Motor</span>
+                  <span className="text-blue-600 font-semibold text-sm">
+                    Permanent Magnetic Synchronous Motor
+                  </span>
                 </div>
                 <div className="flex justify-between items-center py-3 border-b">
                   <span className="font-medium">{t.power}</span>
@@ -482,13 +535,19 @@ ${t.formThanks}`
                 <div className="flex justify-between items-center py-3 border-b">
                   <span className="font-medium">{t.acceleration}</span>
                   <div className="text-right">
-                    <div className="text-blue-600 font-semibold text-sm">{t.variantPro}</div>
-                    <div className="text-blue-600 font-semibold text-sm">{t.variantMax}</div>
+                    <div className="text-blue-600 font-semibold text-sm">
+                      {t.variantPro}
+                    </div>
+                    <div className="text-blue-600 font-semibold text-sm">
+                      {t.variantMax}
+                    </div>
                   </div>
                 </div>
                 <div className="flex justify-between items-center py-3">
                   <span className="font-medium">{t.maxSpeed}</span>
-                  <span className="text-blue-600 font-semibold">175 km/jam</span>
+                  <span className="text-blue-600 font-semibold">
+                    175 km/jam
+                  </span>
                 </div>
               </div>
             </Card>
@@ -499,7 +558,9 @@ ${t.formThanks}`
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Shield className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900">{t.activeSafety}</h3>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  {t.activeSafety}
+                </h3>
               </div>
 
               <div className="space-y-3">
@@ -509,7 +570,9 @@ ${t.formThanks}`
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
-                  <span className="text-sm">Automatic Emergency Braking (AEB)</span>
+                  <span className="text-sm">
+                    Automatic Emergency Braking (AEB)
+                  </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
@@ -525,11 +588,15 @@ ${t.formThanks}`
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
-                  <span className="text-sm">Intelligent Cruise Control (ICC)</span>
+                  <span className="text-sm">
+                    Intelligent Cruise Control (ICC)
+                  </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
-                  <span className="text-sm">Collision Mitigation Support (CMSF dan CMSR)</span>
+                  <span className="text-sm">
+                    Collision Mitigation Support (CMSF dan CMSR)
+                  </span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full flex-shrink-0"></div>
@@ -557,14 +624,18 @@ ${t.formThanks}`
       <section id="pricing" className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{t.pricingTitle}</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              {t.pricingTitle}
+            </h2>
           </div>
 
           <div className="max-w-2xl mx-auto">
             <Card className="p-8 text-center">
               <Badge className="mb-4 bg-blue-600">{t.popular}</Badge>
               <h3 className="text-2xl font-bold mb-2">Geely EX5 MAX</h3>
-              <div className="text-4xl font-bold text-blue-600 mb-4">Rp 515.000.000</div>
+              <div className="text-4xl font-bold text-blue-600 mb-4">
+                Rp 515.000.000
+              </div>
               <p className="text-gray-600 mb-6">{t.priceOtr}</p>
               <Button
                 onClick={() => scrollToSection("booking")}
@@ -582,13 +653,18 @@ ${t.formThanks}`
       <section id="gallery" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{t.galleryTitle}</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              {t.galleryTitle}
+            </h2>
             <p className="text-xl text-gray-600">{t.gallerySubtitle}</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Video Item */}
-            <Card className="group cursor-pointer overflow-hidden" onClick={() => setIsVideoModalOpen(true)}>
+            <Card
+              className="group cursor-pointer overflow-hidden"
+              onClick={() => setIsVideoModalOpen(true)}
+            >
               <CardContent className="p-0 relative">
                 <Image
                   src="/images/geely-safety-video-thumbnail.png"
@@ -598,19 +674,28 @@ ${t.formThanks}`
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Button size="lg" variant="secondary" className="rounded-full bg-white/90 hover:bg-white shadow-lg">
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="rounded-full bg-white/90 hover:bg-white shadow-lg"
+                  >
                     <Play className="w-8 h-8 text-gray-900 ml-1" />
                   </Button>
                 </div>
                 <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-lg text-sm font-medium">
                   📹 Safety Test Video
                 </div>
-                <div className="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs">3:45</div>
+                <div className="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs">
+                  3:45
+                </div>
               </CardContent>
             </Card>
 
             {/* Test Track Video Item */}
-            <Card className="group cursor-pointer overflow-hidden" onClick={() => setIsTestTrackVideoOpen(true)}>
+            <Card
+              className="group cursor-pointer overflow-hidden"
+              onClick={() => setIsTestTrackVideoOpen(true)}
+            >
               <CardContent className="p-0 relative">
                 <Image
                   src="/images/test-track-video-thumbnail.jpeg"
@@ -620,19 +705,28 @@ ${t.formThanks}`
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Button size="lg" variant="secondary" className="rounded-full bg-white/90 hover:bg-white shadow-lg">
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="rounded-full bg-white/90 hover:bg-white shadow-lg"
+                  >
                     <Play className="w-8 h-8 text-gray-900 ml-1" />
                   </Button>
                 </div>
                 <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-lg text-sm font-medium">
                   📹 Test Track Performance
                 </div>
-                <div className="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs">4:12</div>
+                <div className="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs">
+                  4:12
+                </div>
               </CardContent>
             </Card>
 
             {/* Exhibition Gallery Item */}
-            <Card className="group cursor-pointer overflow-hidden" onClick={() => setIsExhibitionVideoOpen(true)}>
+            <Card
+              className="group cursor-pointer overflow-hidden"
+              onClick={() => setIsExhibitionVideoOpen(true)}
+            >
               <CardContent className="p-0 relative">
                 <Image
                   src="/images/geely-ex5-exhibition.png"
@@ -642,14 +736,20 @@ ${t.formThanks}`
                   className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Button size="lg" variant="secondary" className="rounded-full bg-white/90 hover:bg-white shadow-lg">
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="rounded-full bg-white/90 hover:bg-white shadow-lg"
+                  >
                     <Play className="w-8 h-8 text-gray-900 ml-1" />
                   </Button>
                 </div>
                 <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-lg text-sm font-medium">
                   📹 Exhibition Display
                 </div>
-                <div className="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs">2:30</div>
+                <div className="absolute top-4 right-4 bg-black/70 text-white px-2 py-1 rounded text-xs">
+                  2:30
+                </div>
               </CardContent>
             </Card>
           </div>
@@ -660,8 +760,12 @@ ${t.formThanks}`
       <section id="booking" className="py-20 bg-blue-600 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">{t.bookingTitle}</h2>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">{t.bookingSubtitle}</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              {t.bookingTitle}
+            </h2>
+            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+              {t.bookingSubtitle}
+            </p>
           </div>
 
           <Card className="max-w-2xl mx-auto">
@@ -674,7 +778,9 @@ ${t.formThanks}`
                   <Input
                     id="name"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     required
                     className="mt-1"
                   />
@@ -688,7 +794,9 @@ ${t.formThanks}`
                     id="whatsapp"
                     type="tel"
                     value={formData.whatsapp}
-                    onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, whatsapp: e.target.value })
+                    }
                     required
                     className="mt-1"
                     placeholder="08123456789"
@@ -704,7 +812,9 @@ ${t.formThanks}`
                       id="date"
                       type="date"
                       value={formData.date}
-                      onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, date: e.target.value })
+                      }
                       required
                       className="mt-1"
                     />
@@ -714,7 +824,12 @@ ${t.formThanks}`
                     <Label htmlFor="time" className="text-gray-700">
                       {t.selectTime}
                     </Label>
-                    <Select value={formData.time} onValueChange={(value) => setFormData({ ...formData, time: value })}>
+                    <Select
+                      value={formData.time}
+                      onValueChange={(value) =>
+                        setFormData({ ...formData, time: value })
+                      }
+                    >
                       <SelectTrigger className="mt-1">
                         <SelectValue placeholder={t.selectTimeOption} />
                       </SelectTrigger>
@@ -735,7 +850,9 @@ ${t.formThanks}`
                   {t.scheduleTestDrive}
                 </Button>
 
-                <p className="text-sm text-gray-600 text-center">{t.dataSecure}</p>
+                <p className="text-sm text-gray-600 text-center">
+                  {t.dataSecure}
+                </p>
               </form>
             </CardContent>
           </Card>
@@ -753,8 +870,14 @@ ${t.formThanks}`
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-5 h-5 mt-1 text-blue-400 flex-shrink-0" />
                   <div>
-                    <p>Jl. Sulawesi No.69, Gubeng, Kec. Gubeng, Surabaya, Jawa Timur 60281</p>
-                    <Link href="#" className="text-blue-400 hover:underline text-sm">
+                    <p>
+                      Jl. Sulawesi No.69, Gubeng, Kec. Gubeng, Surabaya, Jawa
+                      Timur 60281
+                    </p>
+                    <Link
+                      href="#"
+                      className="text-blue-400 hover:underline text-sm"
+                    >
                       {t.viewOnMaps}
                     </Link>
                   </div>
@@ -777,7 +900,10 @@ ${t.formThanks}`
                   <Mail className="w-5 h-5 text-blue-400" />
                   <div>
                     <p className="text-sm text-gray-400">{t.email}</p>
-                    <Link href="mailto:ilhambint.geely@gmail.com" className="hover:text-blue-400">
+                    <Link
+                      href="mailto:ilhambint.geely@gmail.com"
+                      className="hover:text-blue-400"
+                    >
                       ilhambint.geely@gmail.com
                     </Link>
                   </div>
@@ -813,5 +939,5 @@ ${t.formThanks}`
         </div>
       </footer>
     </div>
-  )
+  );
 }
